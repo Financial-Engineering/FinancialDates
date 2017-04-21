@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/RAW/!svn/ver/424/FinancialDates/trunk/DateTest
+END
+App.Config
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/RAW/!svn/ver/439/FinancialDates/trunk/DateTest/App.Config
+END
+Program.cs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/RAW/!svn/ver/442/FinancialDates/trunk/DateTest/Program.cs
+END
+DateTest.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/RAW/!svn/ver/439/FinancialDates/trunk/DateTest/DateTest.csproj
+END

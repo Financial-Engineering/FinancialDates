@@ -1,0 +1,8 @@
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\bin\x64\Debug\DateTest.exe.config
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\bin\x64\Debug\DateTest.exe
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\bin\x64\Debug\DateTest.pdb
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\bin\x64\Debug\FinancialDates.dll
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\bin\x64\Debug\FinancialDates.pdb
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\obj\x64\Debug\DateTest.csprojResolveAssemblyReference.cache
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\obj\x64\Debug\DateTest.exe
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\DateTest\obj\x64\Debug\DateTest.pdb

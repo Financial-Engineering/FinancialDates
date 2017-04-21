@@ -1,0 +1,6 @@
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\bin\x64\Debug\FinancialDates.dll.config
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\bin\x64\Debug\FinancialDates.dll
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\bin\x64\Debug\FinancialDates.pdb
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\obj\x64\Debug\FinancialDates.csprojResolveAssemblyReference.cache
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\obj\x64\Debug\FinancialDates.dll
+C:\Users\rlewis\Dropbox\projects\Visual Studio 2013\FinancialDates\FinancialDates\obj\x64\Debug\FinancialDates.pdb

@@ -1,0 +1,143 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.IO;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
+using System.Runtime.InteropServices;
+
+namespace FinancialDates
+{
+    using CalDictionary = Dictionary<string, HashSet<DateTime>>;
+
+    #region UnknownCurrencyException Class
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    public class UnknownCurrencyException : Exception
+    {
+        public UnknownCurrencyException()
+        {
+        }
+
+        public UnknownCurrencyException(string message)
+            : base(message)
+        {
+        }
+
+        public UnknownCurrencyException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
+    }
+    #endregion
+
+    #region Calendar Class
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    public sealed class Calendar
+    {
+        private static readonly CalDictionary cals;
+
+        [ComVisible(false)]
+        public HashSet<DateTime> Holidays { get; set; }
+
+        static Calendar()
+        {
+            cals = new CalDictionary();
+
+            try
+            {
+                const string connstr = "metadata=res://*/Calendar.csdl|res://*/Calendar.ssdl|res://*/Calendar.msl;provider=System.Data.SqlClient;provider connection string='Data Source=MIZAUSYD07;Initial Catalog=FXSystem;Integrated Security=True;MultipleActiveResultSets=False'";
+                FXSystemEntities fxContext = new FXSystemEntities(connstr);
+
+                ObjectQuery<FXFCAL> calendars = fxContext.FXFCAL;
+
+                // Ignore MEL entries and only consider SYD for AUD
+                var calQuery = from cal in calendars
+                               where !cal.BUSCENTRE.Contains(@"/MELBOURNE/")
+                               select new { ccy = cal.CCYCODE, date = cal.DATE };
+
+                foreach (var row in calQuery)
+                {
+                    if (!cals.ContainsKey(row.ccy))
+                        cals.Add(row.ccy, new HashSet<DateTime>());
+
+                    HashSet<DateTime> dts = cals[row.ccy];
+                    dts.Add(row.date.Value);
+                }
+
+                fxContext.Connection.Close();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        public Calendar()
+        {
+            Holidays = new HashSet<DateTime>();
+        }
+
+        public Calendar(string ccy)
+        {
+            setCalendar(ccy);
+        }
+
+        public Calendar(params string[] ccys)
+        {
+            setCalendar(ccys);
+        }
+
+        public void setCalendar(string ccy)
+        {
+            if (!cals.ContainsKey(ccy))
+                throw new UnknownCurrencyException("Unsupported Currency: " + ccy);
+
+            this.Holidays = cals[ccy];
+        }
+
+        [ComVisible(false)]
+        public void setCalendar(params string[] ccys)
+        {
+            foreach (string ccy in ccys)
+            {
+                if (!cals.ContainsKey(ccy))
+                    throw new UnknownCurrencyException(ccy);
+
+                if (this.Holidays == null)
+                    this.Holidays = cals[ccy];
+                else
+                    this.Holidays.UnionWith(cals[ccy]);
+            }
+        }
+
+        public void addCalendar(string ccy)
+        {
+            if (!cals.ContainsKey(ccy))
+                throw new UnknownCurrencyException(ccy);
+
+            if (this.Holidays == null)
+                this.Holidays = cals[ccy];
+            else
+                this.Holidays.UnionWith(cals[ccy]);
+        }
+
+        // This function makes no provision for Israel or Islamic countries
+        public bool isWeekend(DateTime dt)
+        {
+            return (dt.DayOfWeek == DayOfWeek.Saturday) ||
+                   (dt.DayOfWeek == DayOfWeek.Sunday);
+        }
+
+        public bool isHoliday(DateTime dt)
+        {
+            return this.Holidays.Contains(dt);
+        }
+
+        public bool isBusinessDay(DateTime dt)
+        {
+            return !(isHoliday(dt) || isWeekend(dt));
+        }
+
+    }
+    #endregion
+}

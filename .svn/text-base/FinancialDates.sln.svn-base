@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialDates", "FinancialDates\FinancialDates.csproj", "{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DateTest", "DateTest\DateTest.csproj", "{2BD260EB-B73D-4D47-BC14-96416C7CAC86}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0} = {8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8691ADEA-8BD9-482A-B74F-7DB7AF8131B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BD260EB-B73D-4D47-BC14-96416C7CAC86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BD260EB-B73D-4D47-BC14-96416C7CAC86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BD260EB-B73D-4D47-BC14-96416C7CAC86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BD260EB-B73D-4D47-BC14-96416C7CAC86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

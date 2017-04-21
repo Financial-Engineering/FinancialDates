@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/RAW/!svn/ver/425/FinancialDates/trunk/FinancialDates
+END
+FinancialDates.snk
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/RAW/!svn/ver/425/FinancialDates/trunk/FinancialDates/FinancialDates.snk
+END
+Schedule.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/RAW/!svn/ver/442/FinancialDates/trunk/FinancialDates/Schedule.cs
+END
+DateTimeExtensions.cs
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/RAW/!svn/ver/442/FinancialDates/trunk/FinancialDates/DateTimeExtensions.cs
+END
+App.Config
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/RAW/!svn/ver/438/FinancialDates/trunk/FinancialDates/App.Config
+END
+FinancialDates.csproj
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/RAW/!svn/ver/441/FinancialDates/trunk/FinancialDates/FinancialDates.csproj
+END
+Calendar.edmx
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/RAW/!svn/ver/438/FinancialDates/trunk/FinancialDates/Calendar.edmx
+END
+DayCount.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/RAW/!svn/ver/432/FinancialDates/trunk/FinancialDates/DayCount.cs
+END
+Calendar.Designer.cs
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/RAW/!svn/ver/438/FinancialDates/trunk/FinancialDates/Calendar.Designer.cs
+END
+Calendar.cs
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/RAW/!svn/ver/438/FinancialDates/trunk/FinancialDates/Calendar.cs
+END
+BusinessDate.cs
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/RAW/!svn/ver/441/FinancialDates/trunk/FinancialDates/BusinessDate.cs
+END

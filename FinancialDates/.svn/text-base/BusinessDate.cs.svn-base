@@ -1,0 +1,420 @@
+﻿using System;
+using System.Runtime.Serialization;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Runtime.InteropServices;
+
+namespace FinancialDates
+{
+
+    // Business date roll behaviours 
+    public enum BusinessConvention
+    {
+        FOLLOWING,
+        FRN,
+        MODFOLLOWING,
+        PRECEDING,
+        MODPRECEDING,
+        NONE
+    }
+
+    // Summary:
+    //     Represents a business date with 0..n holiday calendars
+    // 
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    public class BusinessDate : IComparable, IComparable<BusinessDate>, IEquatable<BusinessDate>
+    {
+        //private Calendar cal;
+        private DateTime date;
+
+        public Calendar Calendar {get; set;}
+        public BusinessConvention Convention { get; set; }
+
+        public DateTime Date
+        {
+            get { return date; }
+            set {
+                date = value;
+                date = adjustDate().Date;
+            }
+        }
+
+        public static implicit operator DateTime(BusinessDate bd)
+        {
+            return bd.Date;
+        }
+
+        public static implicit operator BusinessDate(DateTime dt)
+        {
+            return new BusinessDate(dt);
+        }
+
+        public BusinessDate()
+        {
+            this.Calendar = new Calendar();
+            this.date = new DateTime();
+            this.Convention = BusinessConvention.NONE;
+        }
+
+        public BusinessDate(BusinessDate bd)
+        {
+            this.Calendar = bd.Calendar;
+            this.date = bd.date;
+            this.Convention = bd.Convention;
+        }
+
+        public BusinessDate(DateTime dt)
+        {
+            Create(dt, new Calendar(), BusinessConvention.NONE);
+        }
+
+        public BusinessDate(DateTime dt, Calendar cal, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            Create(dt, cal, conv);
+        }
+
+        public BusinessDate(DateTime dt, string cal, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            Create(dt, cal, conv);
+        }
+
+        public BusinessDate(int year, int month, int day, Calendar cal, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            Create(new DateTime(year, month, day), cal, conv);
+        }
+
+        public BusinessDate(int year, int month, int day, string cal, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            Create(new DateTime(year, month, day), cal, conv);
+        }
+
+        public BusinessDate(DateTime dt, params string[] cals)
+        {
+            Create(dt,new Calendar(cals),BusinessConvention.NONE);
+        }
+
+        public void Create(DateTime dt, Calendar cal = null, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            this.Calendar = cal;
+            this.date = dt;
+            this.Convention = conv;
+
+            this.date = adjustDate().Date;
+        }
+
+        public void Create(DateTime dt, string cal, BusinessConvention conv = BusinessConvention.NONE)
+        {
+            Create(dt, new Calendar(cal), conv);
+        }
+
+        private BusinessDate addBusinessDays(int incr)
+        {
+            BusinessDate ndt = new BusinessDate(this);
+
+            while (!Calendar.isBusinessDay(ndt.Date))
+                ndt.date = ndt.date.AddDays(incr);
+
+            return ndt;
+        }
+
+        public BusinessDate adjustDate()
+        {
+            BusinessDate ndt = new BusinessDate(this);
+
+            if (!Calendar.isBusinessDay(ndt.Date))
+            {
+                switch (Convention)
+                {
+                    case BusinessConvention.FOLLOWING:
+                        ndt = addBusinessDays(1);
+                        break;
+                    case BusinessConvention.MODFOLLOWING:
+                        ndt = addBusinessDays(1);
+                        if (ndt.Date.Month != this.Date.Month)
+                        {
+                            ndt = this;
+                            goto case BusinessConvention.PRECEDING;
+                        }
+                        break;
+                    case BusinessConvention.PRECEDING:
+                        ndt = addBusinessDays(-1);
+                        break;
+                    case BusinessConvention.MODPRECEDING:
+                        ndt = addBusinessDays(-1);
+                        if (ndt.Date.Month != this.Date.Month)
+                        {
+                            ndt = this;
+                            goto case BusinessConvention.FOLLOWING;
+                        }
+                        break;
+                }
+            }
+
+            return ndt;
+        }
+
+        private BusinessDate nextBusinessDay()
+        {
+            BusinessDate ndt = addBusinessDays(1);
+
+            return ndt;
+        }
+
+        private BusinessDate prevBusinessDay()
+        {
+            BusinessDate pdt = addBusinessDays(-1);
+
+            return pdt;
+        }
+
+        public override int GetHashCode()
+        {
+            return date.GetHashCode();
+        }
+
+        public int CompareTo(BusinessDate value)
+        {
+            return this.date.CompareTo(value);
+        }
+
+        [ComVisible(false)]
+        public int CompareTo(object value)
+        {
+            return this.date.CompareTo(value);
+        }
+
+        public bool Equals(BusinessDate value)
+        {
+            return this.date.Equals(value);
+        }
+
+        [ComVisible(false)]
+        public override bool Equals(object value)
+        {
+            return this.date.Equals(value);
+        }
+
+        public static bool operator ==(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date == d2.date;
+        }
+        public static bool operator ==(BusinessDate d1, DateTime d2)
+        {
+            return d1.date == d2;
+        }
+        public static bool operator ==(DateTime d1, BusinessDate d2)
+        {
+            return d1 == d2.date;
+        }
+        public static bool operator !=(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date != d2.date;
+        }
+        public static bool operator !=(BusinessDate d1, DateTime d2)
+        {
+            return d1.date != d2;
+        }
+        public static bool operator !=(DateTime d1, BusinessDate d2)
+        {
+            return d1 != d2.Date;
+        }
+
+        public bool lt(BusinessDate d1)
+        {
+            return date < d1.date;
+        }
+        public bool lt(DateTime d1)
+        {
+            return date < d1;
+        }
+
+        public bool le(BusinessDate d1)
+        {
+            return date <= d1.date;
+        }
+        public bool le(DateTime d1)
+        {
+            return date <= d1;
+        }
+
+        public bool gt(BusinessDate d1)
+        {
+            return date > d1.date;
+        }
+        public bool gt(DateTime d1)
+        {
+            return date > d1;
+        }
+
+        public bool ge(BusinessDate d1)
+        {
+            return date >= d1.date;
+        }
+        public bool ge(DateTime d1)
+        {
+            return date >= d1;
+        }
+
+        public bool ne(BusinessDate d1)
+        {
+            return date != d1.date;
+        }
+
+        public bool ne(DateTime d1)
+        {
+            return date != d1;
+        }
+
+        public static bool operator <(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date < d2.date;
+        }
+
+        public static bool operator <(BusinessDate d1, DateTime d2)
+        {
+            return d1.date < d2;
+        }
+
+        public static bool operator <(DateTime d1, BusinessDate d2)
+        {
+            return d1 < d2.date;
+        }
+
+        public static bool operator <=(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date <= d2.date;
+        }
+
+        public static bool operator <=(BusinessDate d1, DateTime d2)
+        {
+            return d1.date <= d2;
+        }
+
+        public static bool operator <=(DateTime d1, BusinessDate d2)
+        {
+            return d1 <= d2.date;
+        }
+
+        public static bool operator >(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date > d2.date;
+        }
+
+        public static bool operator >(BusinessDate d1, DateTime d2)
+        {
+            return d1.date > d2;
+        }
+
+        public static bool operator >(DateTime d1, BusinessDate d2)
+        {
+            return d1 > d2.date;
+        }
+
+        public static bool operator >=(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date >= d2.date;
+        }
+
+        public static bool operator >=(BusinessDate d1, DateTime d2)
+        {
+            return d1.date >= d2;
+        }
+
+        public static bool operator >=(DateTime d1, BusinessDate d2)
+        {
+            return d1 >= d2.date;
+        }
+
+        public static TimeSpan operator -(BusinessDate d1, BusinessDate d2)
+        {
+            return d1.date - d2.date;
+        }
+
+        public static TimeSpan operator -(BusinessDate d1, DateTime d2)
+        {
+            return d1.date - d2;
+        }
+
+        public static TimeSpan operator -(DateTime d1, BusinessDate d2)
+        {
+            return d1 - d2.date;
+        }
+
+        public static BusinessDate operator +(BusinessDate d1, TimeSpan ts)
+        {
+            return new BusinessDate(d1.date + ts, d1.Calendar);
+        }
+
+        public BusinessDate AddDays(int days)
+        {
+            return new BusinessDate(Date.AddDays(days), Calendar, Convention);
+        }
+
+        public BusinessDate AddMonths(int months)
+        {
+            return new BusinessDate(Date.AddMonths(months), Calendar, Convention);
+        }
+
+        public BusinessDate AddYears(int years)
+        {
+            return new BusinessDate(Date.AddYears(years), Calendar, Convention);
+        }
+
+        public int Subtract(BusinessDate d1, BusinessDate d2)
+        {
+            return (d1 - d2).Days;
+        }
+        public int Subtract(BusinessDate d1, DateTime d2)
+        {
+            return (d1 - d2).Days;
+        }
+        public int Subtract(DateTime d1, BusinessDate d2)
+        {
+            return (d1 - d2).Days;
+        }
+
+        [ComVisible(false)]
+        public string ToString(IFormatProvider provider)
+        {
+            return date.ToString(provider);
+        }
+
+        public string ToString(string format)
+        {
+            return date.ToString(format);
+        }
+
+        [ComVisible(false)]
+        public string ToString(string format, IFormatProvider provider)
+        {
+            return date.ToString(format, provider);
+        }
+
+        override public string ToString()
+        {
+            return date.ToString("yyyy-MM-dd");
+        }
+
+        public int ToExcel()
+        {
+            return date.ToExcel();
+        }
+
+        public BusinessDate FromExcel(int excelDate)
+        {
+            return new BusinessDate(date.FromExcel(excelDate),Calendar);
+        }
+
+        public BusinessDate Next(DayOfWeek dayOfWeek)
+        {
+            return new BusinessDate(date.Next(dayOfWeek), Calendar);
+        }
+
+        public BusinessDate Find(int num, DayOfWeek dayOfWeek)
+        {
+            return new BusinessDate(date.Find(num,dayOfWeek), Calendar);
+        }
+    }
+
+}

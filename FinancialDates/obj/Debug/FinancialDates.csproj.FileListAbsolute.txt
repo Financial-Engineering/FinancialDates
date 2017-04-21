@@ -1,0 +1,7 @@
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\bin\Debug\FinancialDates.dll.config
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\bin\Debug\FinancialDates.dll
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\bin\Debug\FinancialDates.pdb
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\obj\Debug\FinancialDates.dll
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\obj\Debug\FinancialDates.pdb
+C:\Users\rlewis\Desktop\FinancialDates\FinancialDates\bin\Debug\FinancialDates.tlb

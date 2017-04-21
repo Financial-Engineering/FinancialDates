@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FXSystemModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+  <EntityContainer Name="FXSystemEntities">
+    <EntitySet Name="FXFCAL" EntityType="FXSystemModel.FXFCAL" />
+  </EntityContainer>
+  <EntityType Name="FXFCAL">
+    <Key>
+      <PropertyRef Name="RUN_EOD" />
+    </Key>
+    <Property Name="DATE" Type="DateTime" />
+    <Property Name="BUSCENTRE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="CCYCODE" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="RUN_EOD" Type="Boolean" Nullable="false" />
+  </EntityType>
+</Schema>

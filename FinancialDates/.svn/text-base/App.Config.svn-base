@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<configuration>
+  <connectionStrings>
+    <add name="FXSystemEntities" connectionString="metadata=res://*/Calendar.csdl|res://*/Calendar.ssdl|res://*/Calendar.msl;provider=System.Data.SqlClient;provider connection string=&quot;Data Source=MIZAUSYD07;Initial Catalog=FXSystem;Integrated Security=True;MultipleActiveResultSets=False&quot;" providerName="System.Data.EntityClient"/>
+  </connectionStrings>
+<startup><supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.0"/></startup></configuration>

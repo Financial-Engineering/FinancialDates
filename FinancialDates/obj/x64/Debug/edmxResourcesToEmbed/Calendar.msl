@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FXSystemModelStoreContainer" CdmEntityContainer="FXSystemEntities">
+    <EntitySetMapping Name="FXFCAL">
+      <EntityTypeMapping TypeName="IsTypeOf(FXSystemModel.FXFCAL)">
+        <MappingFragment StoreEntitySet="FXFCAL">
+          <ScalarProperty Name="DATE" ColumnName="DATE" />
+          <ScalarProperty Name="BUSCENTRE" ColumnName="BUSCENTRE" />
+          <ScalarProperty Name="CCYCODE" ColumnName="CCYCODE" />
+          <ScalarProperty Name="RUN_EOD" ColumnName="RUN_EOD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

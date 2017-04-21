@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+using FinancialDates;
+
+namespace DateTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            DateTime d1 = new DateTime(2012, 2, 29);
+            DateTime d2 = new DateTime(2012, 3, 29);
+
+            DayCount dc = new Act365();
+            double fract = dc.yearFraction(d1, d2);
+
+            Calendar c1 = new Calendar("GBP");
+
+            bool a = c1.isBusinessDay(d1);
+            bool b = c1.isBusinessDay(d2);
+
+            string[] cals = { "USD", "GBP" };
+
+            Calendar c2 = new Calendar("USD", "GBP");
+            Calendar c3 = new Calendar(new string[]{ "USD", "GBP" });
+
+            a = c2.isBusinessDay(d1);
+            b = c2.isBusinessDay(d2);
+          
+            d1 = new DateTime(2011, 5, 28); // Saturday before Memorial Day
+            int e1 = d1.ToExcel();
+
+            BusinessDate bd = new BusinessDate(d1, c2);
+            BusinessDate bd3 = d1;
+
+            int edt = bd.ToExcel();
+
+            if (bd == new DateTime(2011, 5, 31))
+                System.Console.WriteLine("Dates are equal");
+
+            if (new DateTime(2011, 5, 31) == bd)
+                System.Console.WriteLine("Dates are equal");
+
+            BusinessDate b1 = new BusinessDate(2011, 09, 29, c3, BusinessConvention.MODFOLLOWING);
+            BusinessDate b2 = new BusinessDate(2012, 09, 29, c3, BusinessConvention.MODFOLLOWING);
+
+            DateTime d3 = d2.Find(3, System.DayOfWeek.Wednesday);
+            DateTime d4 = d2.Next(System.DayOfWeek.Monday);
+
+            Schedule s1 = new Schedule(b1, b2, Frequency.SEMIANNUAL);
+
+            b1 = new BusinessDate(2011, 10, 15, c3, BusinessConvention.MODFOLLOWING);
+            b2 = new BusinessDate(2012, 09, 29, c3, BusinessConvention.MODFOLLOWING);
+
+            Schedule s2 = new Schedule(b1, b2, Frequency.SEMIANNUAL, RollConvention.NONE, Stub.SHORT_FIRST);
+        }
+    }
+}
